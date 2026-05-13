@@ -8,8 +8,19 @@ This paper presents Codex Demo Day Arena as a control-plane system for AI-agent 
 
 ## Read
 
+- [PDF](more-code-is-not-progress.pdf)
 - [Full paper](more-code-is-not-progress.md)
+- [LaTeX source](more-code-is-not-progress.tex)
 - [References and repo artifacts](references.md)
+
+## Build
+
+```bash
+cd paper
+make
+```
+
+The build uses `tectonic`.
 
 ## Figures
 

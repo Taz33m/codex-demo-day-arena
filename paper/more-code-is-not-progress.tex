@@ -1,0 +1,453 @@
+\documentclass[11pt]{article}
+
+\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{seqsplit}
+\usepackage{tikz}
+\usepackage[hidelinks]{hyperref}
+
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, shapes.misc, fit}
+
+\definecolor{linkblue}{HTML}{1F4E79}
+\definecolor{lightgray}{HTML}{F5F7FA}
+\definecolor{darkgray}{HTML}{333333}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=linkblue,
+  urlcolor=linkblue,
+  citecolor=linkblue
+}
+
+\lstdefinestyle{paperstyle}{
+  basicstyle=\ttfamily\small,
+  backgroundcolor=\color{lightgray},
+  frame=single,
+  framerule=0.2pt,
+  rulecolor=\color{darkgray},
+  breaklines=true,
+  columns=fullflexible
+}
+\lstset{style=paperstyle}
+\emergencystretch=3em
+
+\newcommand{\code}[1]{\texttt{\seqsplit{#1}}}
+\newcommand{\ready}{\code{ready}}
+\newcommand{\compelling}{\code{compelling}}
+\newcommand{\investable}{\code{investable}}
+\newcommand{\repo}{Codex Demo Day Arena}
+
+\title{\textbf{More Code Is Not Progress}\\
+\large Evidence-Gated Orchestration for AI Coding Agent Product Portfolios}
+\author{Tazeem Mahashin}
+\date{2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+AI coding agents make product-shaped repositories cheap to generate. The harder engineering problem is deciding which generated candidates deserve more compute, which should stop, and when synthetic validation must give way to real users or real data. This paper describes \repo, a product-foundry control plane for evaluating AI-built startup candidates through validator gates, buyer-usefulness scoring, compute allocation, proof-priority ranking, and IC-style stopping rules.
+
+The system separates three concepts that are often collapsed in agent workflows: \ready, meaning structurally judgeable; \compelling, meaning a synthetic buyer judge found plausible usefulness; and \investable, meaning external proof exists. In a 20-candidate case study, the control plane moved 20/20 candidates to structural readiness, classified 19/20 as buyer-compelling under synthetic rubric-based review, identified 5 proof-now finalists, and awarded no fictional \$10M winner because 0/20 candidates had external proof. The no-winner result is not a failure case. It is the intended safety behavior: the system refused to convert synthetic validation into false conviction.
+\end{abstract}
+
+\section{Introduction}
+
+Modern coding agents can produce large amounts of working code, tests, docs, fixtures, and demos. That capability changes the bottleneck. When generation is cheap, judgment becomes scarce. The central question is no longer whether an agent can build a plausible repo. The central question is whether the repo deserves more attention, more compute, or a higher-confidence decision.
+
+\repo{} treats AI-built products as a venture-style portfolio. Repo-owner agents improve candidates. Validator gates reject weak maturity. Buyer-usefulness judges score the product from the target operator's perspective. A compute allocator funds only candidates where another round can change an investment belief. When local development reaches the synthetic development ceiling, the system switches from building to proof prioritization.
+
+The project is intentionally framed as a control-plane artifact, not a collection of product demos. The private product repos are not the contribution. The contribution is the orchestration system that can decide when to continue, when to hold, and when to award no winner.
+
+\section{Problem: Code Generation vs. Product Evidence}
+
+AI coding agents often optimize for visible progress: more LOC, more files, more tests, more generated reports, and more narrative polish. In product work, those signals can be misleading. A repo can become larger and more internally coherent while failing to cross the threshold that matters: a target user understands the output and wants it.
+
+The arena therefore distinguishes three levels of evidence:
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{>{\ttfamily}l X X}
+\toprule
+Level & Meaning & Typical evidence \\
+\midrule
+ready & Structurally judgeable. & Demo, tests, evals, receipt, product surface, buyer artifact, mock disclosure. \\
+compelling & Plausibly useful under synthetic buyer review. & Buyer scorecard with useful artifact, strongest believe/pass reasons, and recommendation. \\
+investable & External proof exists. & Real user feedback, real/public data, pilot request, sample-data request, or willingness-to-pay signal. \\
+\bottomrule
+\end{tabularx}
+\caption{Evidence levels used by the control plane.}
+\end{table}
+
+This distinction prevents a common failure mode: treating a runnable, polished synthetic demo as a market-validated product. In this system, ready is not fundable. Compelling is not fundable. Only external proof can move a candidate toward investability.
+
+\section{System Overview}
+
+The arena is organized as a product-foundry control plane. Each product candidate lives as a repository with a standard command contract and maturity artifacts. The control plane executes a sequence of checks and allocation decisions over the portfolio.
+
+\begin{figure}[h]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+  node distance=0.9cm,
+  box/.style={draw, rounded corners, align=center, minimum width=3.2cm, minimum height=0.8cm, fill=lightgray},
+  note/.style={draw, rounded corners, align=center, minimum width=3.5cm, minimum height=0.65cm, fill=white},
+  arrow/.style={-Latex, thick}
+]
+  \node[box] (a) {Product\\Candidates};
+  \node[box, below=of a] (b) {Repo-Owner\\Agents};
+  \node[box, below=of b] (c) {Validator\\Gates};
+  \node[box, below=of c] (d) {Buyer-Usefulness\\Judge};
+  \node[box, below=of d] (e) {Compute\\Allocator};
+  \node[box, below=of e] (f) {Funded Proof\\Sprints};
+  \node[box, below=of f] (g) {Proof\\Prioritizer};
+  \node[box, below=of g] (h) {IC / No-Winner\\Decision};
+
+  \draw[arrow] (a) -- (b);
+  \draw[arrow] (b) -- (c);
+  \draw[arrow] (c) -- (d);
+  \draw[arrow] (d) -- (e);
+  \draw[arrow] (e) -- (f);
+  \draw[arrow] (f) -- (g);
+  \draw[arrow] (g) -- (h);
+
+  \node[note, right=1.2cm of c] (c1) {ready =\\structurally judgeable};
+  \node[note, right=1.2cm of d] (d1) {compelling =\\synthetic usefulness};
+  \node[note, right=1.2cm of g] (g1) {investable requires\\external proof};
+  \draw[arrow] (c) -- (c1);
+  \draw[arrow] (d) -- (d1);
+  \draw[arrow] (g) -- (g1);
+\end{tikzpicture}
+}
+\caption{Control-plane architecture.}
+\end{figure}
+
+The main components are product candidates, repo-owner agents, validator gates, buyer-usefulness judges, a compute allocator, a proof prioritizer, and an IC/no-winner decision rule. The system's purpose is not to maximize the number of running repos. It is to allocate attention toward evidence.
+
+\section{Control-Plane Implementation}
+
+The implementation uses a script-driven control plane around private product repositories and a public sanitized artifact. Product repos are discovered from a manifest and processed by orchestration scripts. Each repo is expected to satisfy a standard interface:
+
+\begin{lstlisting}[language=bash]
+make demo
+make test
+make eval
+make receipt
+\end{lstlisting}
+
+The control flow can be summarized as:
+
+\begin{lstlisting}[language=Python]
+for repo in product_repos:
+    validation = validate(repo)
+    buyer_score = judge_buyer_usefulness(repo)
+    proof_status = detect_external_proof_blocker(repo)
+    allocation = allocate_compute(validation, buyer_score, proof_status)
+\end{lstlisting}
+
+\subsection{Repo Discovery and Round Workflow}
+
+The control plane discovers product repos from a manifest rather than hard-coding paths. A compatible manifest row contains a team id, product name, track, repository name, repository URL, and local checkout path. The private arena used that manifest to map portfolio-level policy decisions back to concrete repos without embedding product-specific logic in the validator or allocator.
+
+A selected round writes owner briefs, launches repo-owner agents where appropriate, validates the updated repos, then writes portfolio-level reports. Later rounds use the previous round's validator and buyer outputs as inputs. Product branches are treated as round artifacts: each funded sprint can produce a branch and commit in the private product repo, while the public control-plane repo records only sanitized aggregate outputs and policy artifacts.
+
+The workflow is round-based rather than infinite. That design is important: a candidate must periodically face portfolio review instead of continuing to accumulate code by default.
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{l X}
+\toprule
+Script & Role \\
+\midrule
+\code{product\_repos.py} & Loads product repo metadata and exposes selection helpers. \\
+\code{validate\_product\_repos.py} & Runs maturity checks and emits repo status rows. \\
+\code{run\_buyer\_judges.py} & Builds buyer packets and parses buyer-usefulness scorecards. \\
+\code{allocate\_compute.py} & Joins validator and buyer outputs into portfolio actions. \\
+\code{rank\_external\_proof.py} & Scores proof feasibility once synthetic development reaches its ceiling. \\
+\code{prepare\_repo\_round.py} & Writes round briefs for selected repos. \\
+\code{launch\_repo\_owners.py} & Launches owner agents for approved repos and captures logs. \\
+\bottomrule
+\end{tabularx}
+\caption{Public control-plane script roles.}
+\end{table}
+
+\subsection{Validator Inputs and Outputs}
+
+The validator consumes a product repo and emits a machine-readable status row. Important fields include \code{ready}, \code{flags}, \code{warnings}, command results, LOC metrics, product-surface signals, receipt artifacts, and investment-readiness terms. The investment-readiness terms include customer, pain, wedge, product surface, core output, aha, differentiation, technical depth, evaluation, and receipt.
+
+The validator does not identify winners. It enforces the minimum bar for being judged.
+
+\subsection{Buyer Scoring Schema}
+
+The buyer-usefulness judge consumes a buyer packet derived from validator outputs, product artifacts, and maturity documents. It emits a numeric score, verdict, recommendation, answer to whether the target buyer would care, strongest reason to believe, strongest reason to pass, useful product output, demo-theater critique, and required condition for more compute.
+
+The important language is synthetic: a repo can be buyer-compelling under rubric-based review without being validated by a real buyer.
+
+\subsection{Compute Allocation Decision Logic}
+
+The allocator joins validator status, buyer score, and external-proof blocker detection. It can assign four actions:
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{>{\ttfamily}l X}
+\toprule
+Action & Meaning \\
+\midrule
+round-2-owner & Fund another owner sprint because the next round can change an investment belief. \\
+external-proof-required & Freeze normal coding because the next belief requires real data or users. \\
+hold & Structurally ready but not buyer-compelling enough for more compute. \\
+salvage-or-pivot & Validator is not green, so normal owner compute is blocked. \\
+\bottomrule
+\end{tabularx}
+\caption{Compute allocation actions.}
+\end{table}
+
+The policy is intentionally conservative. Another sprint is justified only if:
+
+\[
+\Delta I(r) > C(r) + R_f(r)
+\]
+
+where $\Delta I(r)$ is the expected increase in confidence that round $r$ makes the product deserve external validation or investment review, $C(r)$ is agent time plus review and complexity cost, and $R_f(r)$ is the risk that synthetic polish increases false confidence.
+
+\subsection{Proof-Priority Ranking Algorithm}
+
+When the portfolio reaches the synthetic ceiling, the control plane ranks external-proof feasibility rather than product polish:
+
+\[
+\begin{aligned}
+\mathrm{proof\_priority} ={}&
+\mathrm{buyer\ pain}
++ \mathrm{reachable\ access}
++ \mathrm{available\ data}\\
+&+ \mathrm{demo\ clarity}
++ \mathrm{willingness\ signal}
+- \mathrm{integration\ complexity}\\
+&- \mathrm{compliance\ sensitivity}.
+\end{aligned}
+\]
+
+The output categories are \code{proof-now finalists}, \code{proof-later contenders}, \code{customer-data-required}, and \code{synthetic-ceiling-reached}. This ranking is not a funding decision. It answers a narrower question: which candidates can most quickly survive contact with reality?
+
+\subsection{Public Artifact Packaging}
+
+The evaluated product repos remain private. The public repository includes the control-plane implementation, policies, prompts, sanitized examples, and aggregate reports. This prevents the public artifact from depending on private product details while preserving the engineering structure of the system.
+
+\section{Candidate State Machine}
+
+The system can be modeled as a state machine:
+
+\begin{figure}[h]
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tikzpicture}[
+  node distance=1.0cm and 1.4cm,
+  state/.style={draw, rounded corners, align=center, minimum width=2.7cm, minimum height=0.72cm, fill=lightgray},
+  arrow/.style={-Latex, thick}
+]
+  \node[state] (raw) {raw\\candidate};
+  \node[state, right=of raw] (ready) {structurally\\ready};
+  \node[state, right=of ready] (buyer) {buyer\\compelling};
+  \node[state, right=of buyer] (funded) {funded\\compute};
+  \node[state, below=of funded] (external) {external proof\\required};
+  \node[state, below left=of external] (now) {proof\\now};
+  \node[state, below=of external] (later) {proof\\later};
+  \node[state, below right=of external] (data) {customer data\\required};
+  \node[state, right=of data] (ceiling) {synthetic\\ceiling};
+  \node[state, below=of later] (ic) {IC\\ready};
+  \node[state, below left=of ic] (invest) {invest};
+  \node[state, below right=of ic] (none) {no\\winner};
+  \node[state, below=of ready] (hold) {hold};
+
+  \draw[arrow] (raw) -- node[above, font=\scriptsize]{flags cleared} (ready);
+  \draw[arrow] (ready) -- node[above, font=\scriptsize]{buyer score passes} (buyer);
+  \draw[arrow] (ready) -- node[left, font=\scriptsize]{weak usefulness} (hold);
+  \draw[arrow] (buyer) -- node[above, font=\scriptsize]{allocator approves} (funded);
+  \draw[arrow] (buyer) |- node[pos=0.25, right, font=\scriptsize]{proof blocker} (external);
+  \draw[arrow] (funded) -- node[right, font=\scriptsize]{ceiling reached} (external);
+  \draw[arrow] (external) -- (now);
+  \draw[arrow] (external) -- (later);
+  \draw[arrow] (external) -- (data);
+  \draw[arrow] (external) -| (ceiling);
+  \draw[arrow] (now) -- node[left, font=\scriptsize]{external evidence} (ic);
+  \draw[arrow] (later) -- (ic);
+  \draw[arrow] (data) -- (ic);
+  \draw[arrow] (ic) -- (invest);
+  \draw[arrow] (ic) -- (none);
+  \draw[arrow] (now) -- (none);
+  \draw[arrow] (later) -- (none);
+  \draw[arrow] (data) -- (none);
+  \draw[arrow] (ceiling) |- (none);
+\end{tikzpicture}
+}
+\caption{Candidate state machine.}
+\end{figure}
+
+The state machine matters because it turns ``stop developing'' into an operational condition. Candidates do not stop because they are finished. They stop because the next unresolved uncertainty cannot be answered by local coding.
+
+\section{Validator and Maturity Gates}
+
+The validator checks whether a repo is structurally judgeable. It is deliberately not an investment committee. Passing means the candidate can be assessed, not that it should receive funding.
+
+\begin{longtable}{p{0.22\linewidth} p{0.43\linewidth} p{0.25\linewidth}}
+\toprule
+Gate & Required evidence & Meaning \\
+\midrule
+\endhead
+Runnable demo & \code{make demo} succeeds and produces product artifacts. & The product can show its core workflow. \\
+Test/eval harness & \code{make test} and \code{make eval} succeed. & The repo has repeatable verification. \\
+Receipt & \code{make receipt} writes a buyer-relevant evidence receipt. & The output can be audited. \\
+Product surface & UI, workspace, dashboard, CLI workflow, or artifact viewer exists. & A user can interact with the product, not only a module. \\
+Buyer artifact & Memo, packet, report, plan, workspace, or decision output exists. & The product produces something a target user could use. \\
+Mock disclosure & Mocks, fixtures, and assumptions are documented. & The repo does not hide synthetic evidence. \\
+Investment readiness & Customer, pain, wedge, aha, differentiation, evaluation, and receipt are answered. & The repo is judgeable as a startup candidate. \\
+\bottomrule
+\caption{Validator and maturity gates.}
+\end{longtable}
+
+The 20/20 readiness result is therefore not suspicious. The validator was not designed to select winners. It was designed to bring candidates to a minimum maturity bar so they could be judged consistently.
+
+\section{Buyer-Usefulness Scoring}
+
+Buyer-usefulness scoring asks whether a target operator would care about the output. The judge does not reward generic dashboards or large codebases by default. It looks for a painful workflow, a clear artifact, and a plausible reason the output would save time, improve judgment, reduce risk, or change a decision.
+
+The scorecard includes score, verdict, recommendation, whether the target buyer would care, strongest reason to believe, strongest reason to pass, useful product output, demo-theater critique, and condition for more compute.
+
+The buyer judge is synthetic. That limitation is central to the system. The correct claim is that 19 candidates were classified as buyer-compelling under synthetic rubric-based review. The paper does not claim that 19 products were market validated.
+
+\section{Compute Allocation and Stopping Rules}
+
+Compute allocation is where the arena becomes a portfolio system rather than a build loop. A repo can only receive another owner round when the next sprint can change a specific investment belief.
+
+The allocator denies normal compute in three common cases:
+
+\begin{enumerate}[leftmargin=1.5em]
+  \item the validator is not green,
+  \item the buyer judge does not find the product compelling,
+  \item the next unresolved belief requires external proof.
+\end{enumerate}
+
+This prevents the agentic equivalent of sunk-cost product management. More agent work is not automatically valuable. After a certain point, more synthetic work can increase confidence in the wrong thing: polish, not truth.
+
+\section{Synthetic Development Ceiling}
+
+The synthetic development ceiling is the point where further local coding cannot resolve the main remaining uncertainty.
+
+Operationally, the ceiling is reached when the product has a runnable surface, the core demo works, tests/evals/receipt exist, buyer artifacts are generated, the synthetic buyer judge finds plausible usefulness, and the strongest remaining pass reason is real-world evidence.
+
+At that point, another owner sprint is likely to create fake certainty. The only useful next signal is external: a target user, real/public data, sample-file request, pilot interest, or willingness-to-pay evidence.
+
+In the final arena state, 19 buyer-compelling candidates were all classified as \code{external-proof-required}. That is the clearest evidence that the validator was no longer the bottleneck.
+
+\section{Case Study: 20-Repo Portfolio}
+
+The case study evaluated 20 product candidates across four broad tracks: finance, education, startup formation, and enterprise agents.
+
+Each candidate was developed through multiple rounds of repo-owner work, maturity validation, buyer-usefulness scoring, and compute allocation. The private repos contain the product implementations. The public repository contains the control-plane architecture, policies, scripts, prompts, sanitized examples, and aggregate reports.
+
+The paper intentionally keeps product names secondary. The system contribution is not a specific generated startup. It is the control plane for managing a portfolio of AI-built candidates.
+
+\section{Results}
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{l r X}
+\toprule
+Measure & Result & Interpretation \\
+\midrule
+Product candidates assessed & 20 & Private product repos were evaluated by the control plane. \\
+Structurally ready & 20 & All candidates became judgeable under validator gates. \\
+Validator flags remaining & 0 & The maturity validator was no longer the bottleneck. \\
+Buyer-compelling under synthetic review & 19 & Synthetic buyer rubric found plausible usefulness, not market validation. \\
+Held as commercially weak & 1 & Structurally ready but not buyer-compelling. \\
+Proof-now finalists & 5 & Fastest candidates for real-world proof attempts. \\
+Investment-grade proof & 0 & No candidate had external proof. \\
+Winner awarded & 0 & No fictional \$10M check was awarded. \\
+\bottomrule
+\end{tabularx}
+\caption{Portfolio results.}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabularx}{\linewidth}{l r X}
+\toprule
+Category & Count & Meaning \\
+\midrule
+Proof-now finalists & 5 & Fastest candidates for real-world proof attempts. \\
+Proof-later contenders & 6 & Promising but slower proof paths. \\
+Customer-data-required & 8 & Cannot advance without partner/customer data. \\
+Synthetic-ceiling-reached & 1 & No current independent proof path. \\
+\bottomrule
+\end{tabularx}
+\caption{Proof-priority categories.}
+\end{table}
+
+\begin{longtable}{p{0.18\linewidth} p{0.72\linewidth}}
+\toprule
+Candidate & Proof condition required to reopen \\
+\midrule
+\endhead
+CanonKit & A real founder provides launch notes, proof claims, and draft positioning, then judges whether the launch pack is usable. \\
+Wedgewise & A founder provides 3--5 real or anonymized customer interviews and judges whether the ICP memo changes positioning or discovery. \\
+ProofPulse & A founder provides a real investor-update draft plus receipts and judges whether the output is sendable with light edits. \\
+PrepPilot & A tutor provides an anonymized worksheet, missed questions, or session notes and marks what they would keep, rewrite, or discard. \\
+SignalDraft & A finance operator reviews a memo generated from a real public earnings event and says whether it would save time or improve judgment. \\
+\bottomrule
+\caption{Proof-now finalists.}
+\end{longtable}
+
+\section{Why No Winner Was Awarded}
+
+The arena was designed to prevent synthetic validation from becoming false conviction. Once candidates reached structural readiness and buyer-compelling status, the remaining uncertainty required external proof. Since no candidate cleared that bar, the correct output was no winner.
+
+This outcome demonstrates discipline. A weaker system would have selected the highest-scoring synthetic candidate and called it the winner. This system refused to award the fictional \$10M check without real-world evidence.
+
+The no-winner decision also clarifies the role of local AI coding agents. They can create product-shaped candidates and make them judgeable. They cannot, by themselves, prove customer urgency, willingness to pay, workflow adoption, or trust on real data.
+
+\section{Failure Modes}
+
+\begin{longtable}{p{0.22\linewidth} p{0.31\linewidth} p{0.33\linewidth}}
+\toprule
+Failure mode & Symptom & Control-plane response \\
+\midrule
+\endhead
+Engineering mass without fundability & More LOC, tests, and packets without a clearer buyer-facing workflow. & Buyer judge and allocator withhold normal compute. \\
+Missing product surface & Product is a module, script, or report generator only. & Validator flags missing surface or weak receipt artifact. \\
+Fake product surface & UI exists but does not support a real operator workflow. & Buyer judge marks output as demo theater. \\
+Synthetic eval overconfidence & Fixtures make the repo look correct without testing real data. & External-proof requirement blocks investment decision. \\
+Narrative polish replacing evidence & Strong README or memo with weak runnable behavior. & Validator requires demo, eval, receipt, and generated artifacts. \\
+Infinite owner loops & Agents keep finding one more feature to add. & Compute allocation requires expected investment-belief delta. \\
+\bottomrule
+\caption{Failure modes and control-plane responses.}
+\end{longtable}
+
+These failure modes are not unique to this arena. They are likely to appear in any workflow where autonomous agents can continue adding plausible implementation detail without external reality checks.
+
+\section{Limitations}
+
+This is a systems case study, not a broad benchmark. The 20 candidate repos are private, which limits reproducibility of candidate-level results. The public repository contains the control-plane implementation and sanitized examples, not the full product portfolio.
+
+The buyer judges are synthetic and rubric-based. They can identify plausible usefulness, surface demo theater, and compare artifacts, but they cannot prove demand. No real customer validation was performed in the final state. Therefore, the system's strongest conclusion is negative: none of the candidates should receive the fictional \$10M investment without external proof.
+
+The proof-priority ranking is also a policy heuristic rather than a statistical model. It is useful because it forces explicit tradeoffs: buyer pain, reachable access, data availability, demo clarity, willingness-to-pay signal, integration complexity, and compliance sensitivity.
+
+\section{Conclusion}
+
+\repo{} shows that agentic product development needs governance, not just generation. A product-foundry control plane can make candidates structurally judgeable, score synthetic buyer usefulness, allocate compute, detect the synthetic development ceiling, and stop before false conviction.
+
+The final result is intentionally conservative: 20/20 ready, 19/20 compelling, 0/20 investable, and no winner. More code is not progress. Better evidence is progress.
+
+\end{document}

@@ -35,6 +35,8 @@ The paper describes the arena as a control-plane implementation: repo discovery,
 Paper assets:
 
 - [Paper index](paper/README.md)
+- [PDF](paper/more-code-is-not-progress.pdf)
+- [LaTeX source](paper/more-code-is-not-progress.tex)
 - [BibTeX citation](paper/citation.bib)
 - [Reproducibility note](docs/reproducibility.md)
 
@@ -89,6 +91,8 @@ codex-demo-day-arena/
   LESSONS_LEARNED.md
   paper/
     more-code-is-not-progress.md
+    more-code-is-not-progress.tex
+    Makefile
     figures/
     tables/
     references.md

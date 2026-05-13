@@ -7,6 +7,15 @@ __pycache__/
 *.pem
 *.key
 *.log
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fls
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
 
 # Runtime logs from launched Codex team sessions.
 teams/*/logs/session-*.log
