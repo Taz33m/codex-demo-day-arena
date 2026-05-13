@@ -5,21 +5,21 @@
 </p>
 
 <p align="center">
-  <a href="paper/more-code-is-not-progress.pdf">Paper PDF</a>
-  ·
-  <a href="paper/more-code-is-not-progress.tex">LaTeX Source</a>
-  ·
-  <a href="FINAL_DEMO_DAY_REPORT.md">Final Report</a>
-  ·
-  <a href="WHY_NO_WINNER.md">Why No Winner</a>
-</p>
-
-<p align="center">
   <img alt="license" src="https://img.shields.io/badge/license-MIT-7fc7a6" />
   <img alt="status" src="https://img.shields.io/badge/status-closed-536b66" />
   <img alt="portfolio" src="https://img.shields.io/badge/portfolio-20%20candidates-7fc7a6" />
   <img alt="result" src="https://img.shields.io/badge/result-no%20winner-d77768" />
   <img alt="paper" src="https://img.shields.io/badge/paper-LaTeX%20%2B%20PDF-536b66" />
+</p>
+
+<p align="center">
+  <a href="paper/more-code-is-not-progress.pdf">
+    <img src="assets/paper-preview.png" alt="Preview of the More Code Is Not Progress paper PDF" width="430" />
+  </a>
+</p>
+
+<p align="center">
+  <em>Click the paper preview to open the PDF.</em>
 </p>
 
 > **TL;DR:** Codex Demo Day Arena evaluated 20 AI-built product candidates through maturity validators, synthetic buyer-usefulness judges, compute-allocation policy, and external-proof gates. It moved 20/20 candidates to structural readiness and classified 19/20 as buyer-compelling under rubric-based review, but awarded no fictional $10M winner because 0/20 had external proof.
