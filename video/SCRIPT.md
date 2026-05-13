@@ -2,6 +2,8 @@
 
 Runtime target: 2:45.
 
+Narration voice: Kokoro-ONNX `am_michael` at `0.8` speed.
+
 ## 0:00-0:12 — Cold Open
 
 AI coding agents can generate product-shaped repos quickly. But more code is not progress. Better evidence is progress.

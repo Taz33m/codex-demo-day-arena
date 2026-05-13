@@ -28,6 +28,12 @@ An editorial technical documentary about an AI-agent product foundry control pla
 - Prefer `power3.out` entrances, `power2.inOut` camera motion, and soft staggered reveals.
 - Animate transforms and opacity only.
 
+## Audio
+
+- Narration should use Kokoro-ONNX with a calm technical voice.
+- Background music should be low, procedural, and documentary-like: steady enough to give the artifact shape, never loud enough to compete with the voice.
+- Avoid upbeat corporate beds, synthetic hype stingers, and dramatic trailer impacts.
+
 ## What Not To Do
 
 - No PowerPoint-like title cards.

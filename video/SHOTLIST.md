@@ -1,5 +1,7 @@
 # Shotlist: More Code Is Not Progress
 
+Audio bed: subtle procedural ambient music underneath all scenes, mixed well below Kokoro-ONNX narration.
+
 ## 0:00-0:12 — Cold Open
 
 - Fast fragments of repo tree, paper preview, terminal checks, and control-plane nodes.
