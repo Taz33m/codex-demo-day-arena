@@ -14,7 +14,10 @@
 
 <p align="center">
   <a href="paper/more-code-is-not-progress.pdf">
-    <img src="assets/paper-preview.png" alt="Preview of the More Code Is Not Progress paper PDF" width="430" />
+    <img src="assets/paper-preview.png" alt="Preview of the More Code Is Not Progress paper PDF" width="300" />
+  </a>
+  <a href="https://youtu.be/n7-Aguvs-XA">
+    <img src="assets/video-preview.gif" alt="Animated preview of the Codex Demo Day Arena systems walkthrough" width="520" />
   </a>
 </p>
 
