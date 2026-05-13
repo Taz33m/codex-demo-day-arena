@@ -31,7 +31,7 @@ An editorial technical documentary about an AI-agent product foundry control pla
 ## Audio
 
 - Narration should use Kokoro-ONNX with a calm technical voice.
-- Background music should be low, procedural, and documentary-like: steady enough to give the artifact shape, never loud enough to compete with the voice.
+- Background music should be low, original, and documentary-like: slow ambient harmony, a faint pulse, and light texture that give the artifact shape without competing with the voice.
 - Avoid upbeat corporate beds, synthetic hype stingers, and dramatic trailer impacts.
 
 ## What Not To Do
