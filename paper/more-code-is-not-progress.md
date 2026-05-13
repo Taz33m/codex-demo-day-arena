@@ -1,5 +1,7 @@
 # More Code Is Not Progress: Evidence-Gated Orchestration for AI Coding Agent Product Portfolios
 
+Tazeem Mahashin, Rensselaer Polytechnic Institute
+
 ## Abstract
 
 AI coding agents make product-shaped repositories cheap to generate. The harder engineering problem is deciding which generated candidates deserve more compute, which should stop, and when synthetic validation must give way to real users or real data. This paper describes Codex Demo Day Arena, a product-foundry control plane for evaluating AI-built startup candidates through validator gates, buyer-usefulness scoring, compute allocation, proof-priority ranking, and IC-style stopping rules.

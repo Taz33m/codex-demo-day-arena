@@ -41,7 +41,18 @@
   columns=fullflexible
 }
 \lstset{style=paperstyle}
-\emergencystretch=3em
+
+% Layout tuning for the PDF artifact: keep the paper compact, but give
+% paragraphs, lists, captions, and tables enough air to read cleanly.
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlength{\abovecaptionskip}{0.6em}
+\setlength{\belowcaptionskip}{0.25em}
+\renewcommand{\arraystretch}{1.16}
+\setlist{leftmargin=1.45em,itemsep=0.18em,topsep=0.35em}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\emergencystretch=4em
 
 \newcommand{\code}[1]{\texttt{\seqsplit{#1}}}
 \newcommand{\ready}{\code{ready}}
@@ -51,7 +62,7 @@
 
 \title{\textbf{More Code Is Not Progress}\\
 \large Evidence-Gated Orchestration for AI Coding Agent Product Portfolios}
-\author{Tazeem Mahashin}
+\author{Tazeem Mahashin\\\small Rensselaer Polytechnic Institute}
 \date{2026}
 
 \begin{document}
@@ -77,9 +88,9 @@ AI coding agents often optimize for visible progress: more LOC, more files, more
 
 The arena therefore distinguishes three levels of evidence:
 
-\begin{table}[h]
+\begin{table}[!htbp]
 \centering
-\begin{tabularx}{\linewidth}{>{\ttfamily}l X X}
+\begin{tabularx}{\linewidth}{>{\ttfamily}l Y Y}
 \toprule
 Level & Meaning & Typical evidence \\
 \midrule
@@ -97,7 +108,7 @@ This distinction prevents a common failure mode: treating a runnable, polished s
 
 The arena is organized as a product-foundry control plane. Each product candidate lives as a repository with a standard command contract and maturity artifacts. The control plane executes a sequence of checks and allocation decisions over the portfolio.
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
 \centering
 \resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[
@@ -165,9 +176,9 @@ A selected round writes owner briefs, launches repo-owner agents where appropria
 
 The workflow is round-based rather than infinite. That design is important: a candidate must periodically face portfolio review instead of continuing to accumulate code by default.
 
-\begin{table}[h]
+\begin{table}[!htbp]
 \centering
-\begin{tabularx}{\linewidth}{l X}
+\begin{tabularx}{\linewidth}{l Y}
 \toprule
 Script & Role \\
 \midrule
@@ -199,9 +210,9 @@ The important language is synthetic: a repo can be buyer-compelling under rubric
 
 The allocator joins validator status, buyer score, and external-proof blocker detection. It can assign four actions:
 
-\begin{table}[h]
+\begin{table}[!htbp]
 \centering
-\begin{tabularx}{\linewidth}{>{\ttfamily}l X}
+\begin{tabularx}{\linewidth}{>{\ttfamily}l Y}
 \toprule
 Action & Meaning \\
 \midrule
@@ -249,7 +260,7 @@ The evaluated product repos remain private. The public repository includes the c
 
 The system can be modeled as a state machine:
 
-\begin{figure}[h]
+\begin{figure}[!htbp]
 \centering
 \resizebox{\linewidth}{!}{%
 \begin{tikzpicture}[
@@ -301,7 +312,7 @@ The state machine matters because it turns ``stop developing'' into an operation
 
 The validator checks whether a repo is structurally judgeable. It is deliberately not an investment committee. Passing means the candidate can be assessed, not that it should receive funding.
 
-\begin{longtable}{p{0.22\linewidth} p{0.43\linewidth} p{0.25\linewidth}}
+\begin{longtable}{L{0.22\linewidth} L{0.43\linewidth} L{0.25\linewidth}}
 \toprule
 Gate & Required evidence & Meaning \\
 \midrule
@@ -361,9 +372,9 @@ The paper intentionally keeps product names secondary. The system contribution i
 
 \section{Results}
 
-\begin{table}[h]
+\begin{table}[!htbp]
 \centering
-\begin{tabularx}{\linewidth}{l r X}
+\begin{tabularx}{\linewidth}{l r Y}
 \toprule
 Measure & Result & Interpretation \\
 \midrule
@@ -380,9 +391,9 @@ Winner awarded & 0 & No fictional \$10M check was awarded. \\
 \caption{Portfolio results.}
 \end{table}
 
-\begin{table}[h]
+\begin{table}[!htbp]
 \centering
-\begin{tabularx}{\linewidth}{l r X}
+\begin{tabularx}{\linewidth}{l r Y}
 \toprule
 Category & Count & Meaning \\
 \midrule
@@ -395,7 +406,7 @@ Synthetic-ceiling-reached & 1 & No current independent proof path. \\
 \caption{Proof-priority categories.}
 \end{table}
 
-\begin{longtable}{p{0.18\linewidth} p{0.72\linewidth}}
+\begin{longtable}{L{0.18\linewidth} L{0.72\linewidth}}
 \toprule
 Candidate & Proof condition required to reopen \\
 \midrule
@@ -419,7 +430,7 @@ The no-winner decision also clarifies the role of local AI coding agents. They c
 
 \section{Failure Modes}
 
-\begin{longtable}{p{0.22\linewidth} p{0.31\linewidth} p{0.33\linewidth}}
+\begin{longtable}{L{0.22\linewidth} L{0.31\linewidth} L{0.33\linewidth}}
 \toprule
 Failure mode & Symptom & Control-plane response \\
 \midrule

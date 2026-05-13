@@ -4,6 +4,7 @@ title: "More Code Is Not Progress: Evidence-Gated Orchestration for AI Coding Ag
 authors:
   - family-names: "Mahashin"
     given-names: "Tazeem"
+    affiliation: "Rensselaer Polytechnic Institute"
 year: 2026
 repository-code: "https://github.com/Taz33m/codex-demo-day-arena"
 url: "https://github.com/Taz33m/codex-demo-day-arena/blob/main/paper/more-code-is-not-progress.md"

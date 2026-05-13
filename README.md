@@ -84,6 +84,7 @@ flowchart TD
 
 The companion paper presents the system as an engineering artifact rather than a narrative postmortem:
 
+- **Author:** Tazeem Mahashin, Rensselaer Polytechnic Institute
 - [Paper PDF](paper/more-code-is-not-progress.pdf)
 - [Markdown paper](paper/more-code-is-not-progress.md)
 - [LaTeX source](paper/more-code-is-not-progress.tex)
