@@ -14,6 +14,8 @@ Modern coding agents can produce large amounts of working code, tests, docs, fix
 
 Codex Demo Day Arena treats AI-built products as a venture-style portfolio. Repo-owner agents improve candidates. Validator gates reject weak maturity. Buyer-usefulness judges score the product from the target operator's perspective. A compute allocator funds only candidates where another round can change an investment belief. When local development reaches the synthetic development ceiling, the system switches from building to proof prioritization.
 
+Prior software-engineering agent work has emphasized real repository tasks and agent-computer interfaces [1, 2]. This paper shifts the unit of analysis from resolving one issue or completing one task to governing a portfolio of product candidates.
+
 The project is intentionally framed as a control-plane artifact, not a collection of product demos. The private product repos are not the contribution. The contribution is the orchestration system that can decide when to continue, when to hold, and when to award no winner.
 
 ## 2. Problem: Code Generation vs Product Evidence
@@ -58,6 +60,8 @@ The main components are:
 - Compute allocator: policy layer that decides whether another owner round is justified.
 - Proof prioritizer: ranking system for deciding which candidates deserve external proof attempts.
 - IC/no-winner decision: final rule that can award no check.
+
+The architecture is compatible with the broader line of work on LLM agents acting in external environments [3, 6], but it adds an explicit portfolio-governance layer: candidate state, compute allocation, proof priority, and no-winner stopping.
 
 ## 4. Control-Plane Implementation
 
@@ -213,7 +217,7 @@ The state machine matters because it turns "stop developing" into an operational
 
 ## 6. Validator And Maturity Gates
 
-The validator checks whether a repo is structurally judgeable. It is deliberately not an investment committee. Passing means the candidate can be assessed, not that it should receive funding.
+The validator checks whether a repo is structurally judgeable. It is deliberately not an investment committee. Passing means the candidate can be assessed, not that it should receive funding. The emphasis on multiple evidence dimensions follows the spirit of holistic evaluation: one metric is not enough when capability, reliability, transparency, and risk all matter [5].
 
 Core gate requirements include:
 
@@ -245,7 +249,7 @@ The scorecard includes:
 - demo-theater critique,
 - condition for more compute.
 
-The buyer judge is synthetic. That limitation is central to the system. The correct claim is that 19 candidates were classified as buyer-compelling under synthetic rubric-based review. The paper does not claim that 19 products were market validated.
+The buyer judge is synthetic. That limitation is central to the system. LLM-as-judge methods can approximate some preference judgments, but they carry known biases and cannot replace human or market evidence [4]. The correct claim is that 19 candidates were classified as buyer-compelling under synthetic rubric-based review. The paper does not claim that 19 products were market validated.
 
 ## 8. Compute Allocation And Stopping Rules
 
@@ -359,3 +363,17 @@ The proof-priority ranking is also a policy heuristic rather than a statistical 
 Codex Demo Day Arena shows that agentic product development needs governance, not just generation. A product-foundry control plane can make candidates structurally judgeable, score synthetic buyer usefulness, allocate compute, detect the synthetic development ceiling, and stop before false conviction.
 
 The final result is intentionally conservative: 20/20 ready, 19/20 compelling, 0/20 investable, and no winner. More code is not progress. Better evidence is progress.
+
+## References
+
+[1] Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, and Karthik Narasimhan. "SWE-bench: Can Language Models Resolve Real-World GitHub Issues?" ICLR, 2024. <https://arxiv.org/abs/2310.06770>
+
+[2] John Yang, Carlos E. Jimenez, Alexander Wettig, Kilian Lieret, Shunyu Yao, Karthik Narasimhan, and Ofir Press. "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering." arXiv:2405.15793, 2024. <https://arxiv.org/abs/2405.15793>
+
+[3] Xiao Liu et al. "AgentBench: Evaluating LLMs as Agents." ICLR, 2024. <https://arxiv.org/abs/2308.03688>
+
+[4] Lianmin Zheng et al. "Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena." NeurIPS Datasets and Benchmarks Track, 2023. <https://arxiv.org/abs/2306.05685>
+
+[5] Percy Liang et al. "Holistic Evaluation of Language Models." arXiv:2211.09110, 2022. <https://arxiv.org/abs/2211.09110>
+
+[6] Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao. "ReAct: Synergizing Reasoning and Acting in Language Models." ICLR, 2023. <https://arxiv.org/abs/2210.03629>

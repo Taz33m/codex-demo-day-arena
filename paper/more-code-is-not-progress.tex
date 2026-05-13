@@ -80,6 +80,8 @@ Modern coding agents can produce large amounts of working code, tests, docs, fix
 
 \repo{} treats AI-built products as a venture-style portfolio. Repo-owner agents improve candidates. Validator gates reject weak maturity. Buyer-usefulness judges score the product from the target operator's perspective. A compute allocator funds only candidates where another round can change an investment belief. When local development reaches the synthetic development ceiling, the system switches from building to proof prioritization.
 
+Prior software-engineering agent work has emphasized real repository tasks and agent-computer interfaces \cite{jimenez2024swebench,yang2024sweagent}. This paper shifts the unit of analysis from resolving one issue or completing one task to governing a portfolio of product candidates.
+
 The project is intentionally framed as a control-plane artifact, not a collection of product demos. The private product repos are not the contribution. The contribution is the orchestration system that can decide when to continue, when to hold, and when to award no winner.
 
 \section{Problem: Code Generation vs. Product Evidence}
@@ -146,6 +148,8 @@ The arena is organized as a product-foundry control plane. Each product candidat
 \end{figure}
 
 The main components are product candidates, repo-owner agents, validator gates, buyer-usefulness judges, a compute allocator, a proof prioritizer, and an IC/no-winner decision rule. The system's purpose is not to maximize the number of running repos. It is to allocate attention toward evidence.
+
+The architecture is compatible with the broader line of work on LLM agents acting in external environments \cite{yao2023react,liu2024agentbench}, but it adds an explicit portfolio-governance layer: candidate state, compute allocation, proof priority, and no-winner stopping.
 
 \section{Control-Plane Implementation}
 
@@ -310,7 +314,7 @@ The state machine matters because it turns ``stop developing'' into an operation
 
 \section{Validator and Maturity Gates}
 
-The validator checks whether a repo is structurally judgeable. It is deliberately not an investment committee. Passing means the candidate can be assessed, not that it should receive funding.
+The validator checks whether a repo is structurally judgeable. It is deliberately not an investment committee. Passing means the candidate can be assessed, not that it should receive funding. The emphasis on multiple evidence dimensions follows the spirit of holistic evaluation: one metric is not enough when capability, reliability, transparency, and risk all matter \cite{liang2023helm}.
 
 \begin{longtable}{L{0.22\linewidth} L{0.43\linewidth} L{0.25\linewidth}}
 \toprule
@@ -336,7 +340,7 @@ Buyer-usefulness scoring asks whether a target operator would care about the out
 
 The scorecard includes score, verdict, recommendation, whether the target buyer would care, strongest reason to believe, strongest reason to pass, useful product output, demo-theater critique, and condition for more compute.
 
-The buyer judge is synthetic. That limitation is central to the system. The correct claim is that 19 candidates were classified as buyer-compelling under synthetic rubric-based review. The paper does not claim that 19 products were market validated.
+The buyer judge is synthetic. That limitation is central to the system. LLM-as-judge methods can approximate some preference judgments, but they carry known biases and cannot replace human or market evidence \cite{zheng2023llmjudge}. The correct claim is that 19 candidates were classified as buyer-compelling under synthetic rubric-based review. The paper does not claim that 19 products were market validated.
 
 \section{Compute Allocation and Stopping Rules}
 
@@ -459,5 +463,39 @@ The proof-priority ranking is also a policy heuristic rather than a statistical 
 \repo{} shows that agentic product development needs governance, not just generation. A product-foundry control plane can make candidates structurally judgeable, score synthetic buyer usefulness, allocate compute, detect the synthetic development ceiling, and stop before false conviction.
 
 The final result is intentionally conservative: 20/20 ready, 19/20 compelling, 0/20 investable, and no winner. More code is not progress. Better evidence is progress.
+
+\begin{thebibliography}{9}
+
+\bibitem{jimenez2024swebench}
+Carlos E. Jimenez, John Yang, Alexander Wettig, Shunyu Yao, Kexin Pei, Ofir Press, and Karthik Narasimhan.
+\newblock SWE-bench: Can Language Models Resolve Real-World GitHub Issues?
+\newblock \emph{ICLR}, 2024. \url{https://arxiv.org/abs/2310.06770}.
+
+\bibitem{yang2024sweagent}
+John Yang, Carlos E. Jimenez, Alexander Wettig, Kilian Lieret, Shunyu Yao, Karthik Narasimhan, and Ofir Press.
+\newblock SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering.
+\newblock arXiv:2405.15793, 2024. \url{https://arxiv.org/abs/2405.15793}.
+
+\bibitem{liu2024agentbench}
+Xiao Liu et al.
+\newblock AgentBench: Evaluating LLMs as Agents.
+\newblock \emph{ICLR}, 2024. \url{https://arxiv.org/abs/2308.03688}.
+
+\bibitem{zheng2023llmjudge}
+Lianmin Zheng et al.
+\newblock Judging LLM-as-a-Judge with MT-Bench and Chatbot Arena.
+\newblock \emph{NeurIPS Datasets and Benchmarks Track}, 2023. \url{https://arxiv.org/abs/2306.05685}.
+
+\bibitem{liang2023helm}
+Percy Liang et al.
+\newblock Holistic Evaluation of Language Models.
+\newblock arXiv:2211.09110, 2022. \url{https://arxiv.org/abs/2211.09110}.
+
+\bibitem{yao2023react}
+Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, and Yuan Cao.
+\newblock ReAct: Synergizing Reasoning and Acting in Language Models.
+\newblock \emph{ICLR}, 2023. \url{https://arxiv.org/abs/2210.03629}.
+
+\end{thebibliography}
 
 \end{document}
