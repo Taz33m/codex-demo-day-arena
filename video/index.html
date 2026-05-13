@@ -329,6 +329,41 @@
         transform: rotate(-1deg);
       }
 
+      .finalist-card {
+        width: 520px;
+        padding: 34px;
+        transform: rotate(-1deg);
+      }
+
+      .finalist-title {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 42px;
+        line-height: 1.05;
+        margin-bottom: 22px;
+      }
+
+      .finalist-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .finalist-item {
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 14px 0;
+        border-top: 1px solid var(--rule);
+        font-size: 24px;
+        line-height: 1.16;
+      }
+
+      .finalist-item span:last-child {
+        color: var(--muted);
+        font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 18px;
+        white-space: nowrap;
+      }
+
       .marker {
         display: inline-block;
         position: relative;
@@ -429,11 +464,11 @@
       }
 
       .score-row.ready .score-value {
-        color: var(--ready);
+        color: #4f7f67;
       }
 
       .score-row.proof .score-value {
-        color: var(--proof);
+        color: #8c6623;
       }
 
       .score-row.no .score-value {
@@ -513,7 +548,7 @@
         id="narration"
         class="clip"
         data-start="0"
-        data-duration="163.6"
+        data-duration="163.9"
         data-track-index="0"
         src="assets/narration.mp3"
         data-volume="1"
@@ -530,10 +565,10 @@
 
       <section id="cold" class="clip scene" data-start="0" data-duration="12" data-track-index="1">
         <div class="cold-grid">
-          <div class="fragment"><strong>scripts/</strong><br />validate_product_repos.py</div>
-          <div class="fragment"><strong>paper/</strong><br />more-code-is-not-progress.pdf</div>
+          <div class="fragment"><strong>20 candidates</strong><br />finance, education, founders, enterprise</div>
+          <div class="fragment"><strong>repo owners</strong><br />one product candidate per agent</div>
           <div class="fragment"><strong>terminal</strong><br />make demo -> make receipt</div>
-          <div class="fragment"><strong>policy</strong><br />external-proof-required</div>
+          <div class="fragment"><strong>proof-now</strong><br />CanonKit, Wedgewise, SignalDraft</div>
           <div class="fragment"><strong>result</strong><br />no winner awarded</div>
         </div>
         <div class="paper-float"><img src="assets/paper-preview.png" alt="Paper preview" /></div>
@@ -593,29 +628,38 @@
 
       <section id="repo" class="clip scene" data-start="65" data-duration="30" data-track-index="1">
         <div class="scene-content">
-          <div class="eyebrow">The public artifact</div>
+          <div class="eyebrow">Portfolio anatomy</div>
           <div class="repo-stage">
             <div class="repo-wall panel">
               <div class="repo-header">
-                <span>codex-demo-day-arena</span>
-                <span>public control plane</span>
+                <span>20 product candidates</span>
+                <span>4 startup tracks</span>
               </div>
               <div class="repo-grid">
-                <div class="repo-file"><div class="path">scripts/</div><div class="desc">validation, buyer judging, compute allocation, proof ranking</div></div>
-                <div class="repo-file"><div class="path">policies/</div><div class="desc">maturity gates, proof protocol, stopping rules</div></div>
-                <div class="repo-file"><div class="path">prompts/</div><div class="desc">repo-owner, buyer judge, IC, technical diligence</div></div>
-                <div class="repo-file"><div class="path">examples/</div><div class="desc">sanitized validation, scorecard, proof-priority outputs</div></div>
-                <div class="repo-file"><div class="path">paper/</div><div class="desc">LaTeX technical paper and PDF</div></div>
-                <div class="repo-file"><div class="path">WHY_NO_WINNER.md</div><div class="desc">synthetic validation is not investment-grade proof</div></div>
+                <div class="repo-file"><div class="path">Finance</div><div class="desc">SignalDraft, Constellation, CovenantLens, BoardBrief</div></div>
+                <div class="repo-file"><div class="path">Founder tools</div><div class="desc">CanonKit, Wedgewise, ProofPulse, SignalPrice</div></div>
+                <div class="repo-file"><div class="path">Education</div><div class="desc">PrepPilot, MisconceptionOS, ReteachKit, Redo</div></div>
+                <div class="repo-file"><div class="path">Enterprise agents</div><div class="desc">ReqTrace, TriageKit, ClosePlan, EvidenceRail</div></div>
+                <div class="repo-file"><div class="path">Common contract</div><div class="desc">demo, tests, evals, receipt, product surface, mock disclosure</div></div>
+                <div class="repo-file"><div class="path">Final bar</div><div class="desc">real user, real data, or workflow pull before IC conviction</div></div>
               </div>
             </div>
-            <div class="paper-card"><img src="assets/paper-preview-secondary.png" alt="Paper preview" /></div>
+            <div class="paper-card finalist-card panel">
+              <div class="finalist-title">Proof-now finalists</div>
+              <div class="finalist-list">
+                <div class="finalist-item"><span>CanonKit</span><span>founder launch</span></div>
+                <div class="finalist-item"><span>Wedgewise</span><span>ICP clarity</span></div>
+                <div class="finalist-item"><span>ProofPulse</span><span>investor updates</span></div>
+                <div class="finalist-item"><span>PrepPilot</span><span>tutor packets</span></div>
+                <div class="finalist-item"><span>SignalDraft</span><span>earnings memo</span></div>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="caption">The public repo is the control plane, not the private product portfolio.</div>
+        <div class="caption">The portfolio was broad; the allocator narrowed it to proof-first candidates.</div>
       </section>
 
-      <section id="gates" class="clip scene" data-start="95" data-duration="25" data-track-index="1">
+      <section id="gates" class="clip scene" data-start="120" data-duration="25" data-track-index="1">
         <div class="scene-content">
           <div class="eyebrow">Evidence gates</div>
           <div class="gate-stage">
@@ -635,7 +679,7 @@
         <div class="caption">A runnable product is not the same as a fundable company.</div>
       </section>
 
-      <section id="result" class="clip scene" data-start="120" data-duration="25" data-track-index="1">
+      <section id="result" class="clip scene" data-start="95" data-duration="25" data-track-index="1">
         <div class="scene-content">
           <div class="eyebrow">Portfolio result</div>
           <div class="scoreboard panel">
@@ -662,7 +706,7 @@
             <div class="final-card panel">
               <div class="final-line">More code is not progress.</div>
               <div class="final-line">Better evidence is progress.</div>
-              <div class="small">The impressive part is not that agents generated products. The impressive part is that the system knew when to stop.</div>
+              <div class="small">The system prevented more code from becoming fake conviction.</div>
             </div>
           </div>
         </div>
@@ -701,8 +745,8 @@
       revealScene("#bottleneck", 12, 23);
       revealScene("#control", 35, 30);
       revealScene("#repo", 65, 30);
-      revealScene("#gates", 95, 25);
-      revealScene("#result", 120, 25);
+      revealScene("#result", 95, 25);
+      revealScene("#gates", 120, 25);
       revealScene("#discipline", 145, 20);
 
       tl.from("#cold .fragment", { autoAlpha: 0, y: 70, scale: 0.94, stagger: 0.16 }, 0.25);
@@ -729,14 +773,14 @@
       tl.to("#repo .paper-card", { y: -18, rotation: 0, duration: 8.0, ease: "sine.inOut" }, 72.0);
       tl.to("#repo .repo-wall", { x: -28, duration: 9.0, ease: "sine.inOut" }, 74.0);
 
-      tl.from("#gates .terminal", { autoAlpha: 0, x: -62, duration: 0.9 }, 96.0);
-      tl.from("#gates .terminal-line", { autoAlpha: 0, x: -24, stagger: 0.16 }, 97.0);
-      tl.from("#gates .state-def", { autoAlpha: 0, x: 46, stagger: 0.18 }, 101.0);
-      tl.to("#gates .state-def", { scale: 1.018, duration: 0.6, stagger: 0.12, yoyo: true, repeat: 1 }, 109.0);
+      tl.from("#result .scoreboard", { autoAlpha: 0, y: 42, duration: 0.85 }, 96.0);
+      tl.from("#result .score-row", { autoAlpha: 0, x: -44, stagger: 0.24 }, 97.0);
+      tl.to("#result .score-row.no", { scale: 1.02, duration: 0.6, stagger: 0.14, yoyo: true, repeat: 1 }, 108.5);
 
-      tl.from("#result .scoreboard", { autoAlpha: 0, y: 42, duration: 0.85 }, 121.0);
-      tl.from("#result .score-row", { autoAlpha: 0, x: -44, stagger: 0.24 }, 122.0);
-      tl.to("#result .score-row.no", { scale: 1.02, duration: 0.6, stagger: 0.14, yoyo: true, repeat: 1 }, 133.5);
+      tl.from("#gates .terminal", { autoAlpha: 0, x: -62, duration: 0.9 }, 121.0);
+      tl.from("#gates .terminal-line", { autoAlpha: 0, x: -24, stagger: 0.16 }, 122.0);
+      tl.from("#gates .state-def", { autoAlpha: 0, x: 46, stagger: 0.18 }, 126.0);
+      tl.to("#gates .state-def", { scale: 1.018, duration: 0.6, stagger: 0.12, yoyo: true, repeat: 1 }, 134.0);
 
       tl.from("#discipline .machine-row", { autoAlpha: 0, x: -48, stagger: 0.22 }, 146.0);
       tl.from("#discipline .final-card", { autoAlpha: 0, x: 70, duration: 1.0 }, 148.0);

@@ -17,7 +17,7 @@ This HyperFrames project produces the companion video for Codex Demo Day Arena: 
 ## Build
 
 ```bash
-npx hyperframes tts narration.txt --voice am_michael --speed 0.8 --output assets/narration.wav
+npx hyperframes tts narration.txt --voice am_michael --speed 0.79 --output assets/narration.wav
 ffmpeg -y -i assets/narration.wav -codec:a libmp3lame -b:a 160k assets/narration.mp3
 rm -f assets/narration.wav
 npx hyperframes lint

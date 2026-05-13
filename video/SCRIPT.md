@@ -2,42 +2,36 @@
 
 Runtime target: 2:45.
 
-Narration voice: Kokoro-ONNX `am_michael` at `0.8` speed.
+Narration voice: Kokoro-ONNX `am_michael` at `0.79` speed.
 
 ## 0:00-0:12 — Cold Open
 
-AI coding agents can generate product-shaped repos quickly. But more code is not progress. Better evidence is progress.
+Twenty repo-owner agents built startup candidates across four tracks: finance, education, startup formation, and enterprise operations. The experiment was not about who could generate the most code. It was about whether any product deserved more belief.
 
 ## 0:12-0:35 — The Bottleneck
 
-When generation becomes cheap, noise gets cheaper too. More lines of code, more docs, more demos, more polish: all of it can look like momentum without changing the decision that matters.
-
-The hard question is not "can the agent build something?" It is "does this candidate deserve more compute?"
+The first failure mode was obvious. Agents can turn effort into bulk: modules, reports, fixtures, tests, dashboards. Useful work, sometimes. But none of that matters if a buyer cannot see the workflow, run the demo, and value the receipt.
 
 ## 0:35-1:05 — Control Plane
 
-Codex Demo Day Arena treats AI-built products like a portfolio. Repo-owner agents improve candidates. Validator gates check maturity. Buyer judges score usefulness from an operator's perspective. The compute allocator funds only work that can change an investment belief. When synthetic development stops helping, the system moves to proof priority.
+So the arena became a control plane. Every repo had to clear the same path: make demo, make test, make eval, make receipt. Then a technical validator checked the product surface, architecture, mocks, evals, and generated artifacts. Buyer judges scored usefulness. The allocator sent compute only where the next round could change an investment belief.
 
-## 1:05-1:35 — Repo Walkthrough
+## 1:05-1:35 — Portfolio Walkthrough
 
-The public repo is not the twenty product candidates. It is the control plane: scripts, policies, prompts, sanitized examples, final reports, and a technical paper. The private product repos stay private. The public artifact shows how the system made decisions without pretending synthetic outputs were market proof.
+The portfolio had real variety. Finance candidates included SignalDraft for earnings memos and Constellation for banker buyer-universe work. Founder tools included CanonKit, Wedgewise, and ProofPulse. Education candidates included PrepPilot and MisconceptionOS. Enterprise agents included ReqTrace, TriageKit, ClosePlan, and EvidenceRail.
 
-## 1:35-2:00 — Evidence Gates
+## 1:35-2:00 — Portfolio Result
 
-The system separates three ideas that agent workflows often collapse. Ready means structurally judgeable. Compelling means a synthetic buyer judge found plausible usefulness. Investable means external proof exists.
+By the final pass, twenty out of twenty candidates were structurally ready. Nineteen were buyer-compelling under synthetic review. Five became proof-now finalists: CanonKit, Wedgewise, ProofPulse, PrepPilot, and SignalDraft.
 
-Every serious candidate needed a demo, tests, evals, a receipt, a product surface, mock disclosure, and a buyer-relevant artifact.
+## 2:00-2:25 — Evidence Gate
 
-## 2:00-2:25 — Portfolio Result
+But none crossed the investment bar. Ready only means judgeable. Compelling only means a synthetic buyer could imagine usefulness. Investable requires external proof: a real user, real data, or a buyer saying the output belongs in their workflow.
 
-The final portfolio had twenty out of twenty structurally ready candidates. Nineteen were buyer-compelling under synthetic review. Five became proof-now finalists. But zero had investment-grade external proof.
-
-So no fictional ten million dollar winner was awarded.
+That is why no fictional ten million dollar winner was awarded.
 
 ## 2:25-2:45 — The Discipline
 
-That refusal is the point. The system was designed to prevent synthetic validation from becoming false conviction.
-
-The impressive part is not that agents generated products. The impressive part is that the system knew when to stop.
+The system did not fail by stopping. It did what it was built to do: prevent more code from becoming fake conviction.
 
 More code is not progress. Better evidence is progress.
