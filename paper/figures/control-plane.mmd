@@ -1,0 +1,12 @@
+flowchart TD
+    A["Product Candidates"] --> B["Repo-Owner Agents"]
+    B --> C["Validator Gates"]
+    C --> D["Buyer-Usefulness Judge"]
+    D --> E["Compute Allocator"]
+    E --> F["Funded Proof Sprints"]
+    F --> G["Proof Prioritizer"]
+    G --> H["IC / No-Winner Decision"]
+
+    C --> C1["ready = structurally judgeable"]
+    D --> D1["compelling = plausible usefulness under synthetic review"]
+    G --> G1["investable requires external proof"]

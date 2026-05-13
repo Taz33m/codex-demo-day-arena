@@ -24,6 +24,14 @@ More code is not progress.
 
 More product evidence is progress.
 
+## Technical Paper
+
+Read the companion paper:
+
+**[More Code Is Not Progress: Evidence-Gated Orchestration for AI Coding Agent Product Portfolios](paper/more-code-is-not-progress.md)**
+
+The paper describes the arena as a control-plane implementation: repo discovery, validator inputs/outputs, maturity flags, buyer scoring, compute allocation, proof-priority ranking, candidate state transitions, and the no-winner decision rule.
+
 ## System Architecture
 
 ```mermaid
@@ -73,6 +81,11 @@ codex-demo-day-arena/
   PORTFOLIO_OUTCOME.md
   TOP_REPOS_TO_REVISIT.md
   LESSONS_LEARNED.md
+  paper/
+    more-code-is-not-progress.md
+    figures/
+    tables/
+    references.md
   docs/
     architecture.md
     operating-model.md

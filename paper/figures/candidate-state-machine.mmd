@@ -1,0 +1,19 @@
+stateDiagram-v2
+    [*] --> raw_candidate
+    raw_candidate --> structurally_ready: validator flags cleared
+    structurally_ready --> buyer_compelling: buyer score passes threshold
+    structurally_ready --> hold: buyer usefulness weak
+    buyer_compelling --> funded_compute: allocation policy approves
+    buyer_compelling --> external_proof_required: proof blocker detected
+    funded_compute --> external_proof_required: synthetic ceiling reached
+    external_proof_required --> proof_now: proof feasibility high
+    external_proof_required --> proof_later: promising but slower proof path
+    external_proof_required --> customer_data_required: needs partner data or credentials
+    external_proof_required --> synthetic_ceiling: no current proof path
+    proof_now --> IC_ready: external evidence acquired
+    proof_now --> no_winner: external evidence missing
+    proof_later --> no_winner: external evidence missing
+    customer_data_required --> no_winner: external evidence missing
+    synthetic_ceiling --> no_winner: external evidence missing
+    IC_ready --> invest: IC approves
+    IC_ready --> no_winner: IC rejects
