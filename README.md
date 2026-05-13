@@ -32,6 +32,12 @@ Read the companion paper:
 
 The paper describes the arena as a control-plane implementation: repo discovery, validator inputs/outputs, maturity flags, buyer scoring, compute allocation, proof-priority ranking, candidate state transitions, and the no-winner decision rule.
 
+Paper assets:
+
+- [Paper index](paper/README.md)
+- [BibTeX citation](paper/citation.bib)
+- [Reproducibility note](docs/reproducibility.md)
+
 ## System Architecture
 
 ```mermaid

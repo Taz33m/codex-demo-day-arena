@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this control-plane artifact, please cite it as below."
+title: "More Code Is Not Progress: Evidence-Gated Orchestration for AI Coding Agent Product Portfolios"
+authors:
+  - family-names: "Mahashin"
+    given-names: "Tazeem"
+year: 2026
+repository-code: "https://github.com/Taz33m/codex-demo-day-arena"
+url: "https://github.com/Taz33m/codex-demo-day-arena/blob/main/paper/more-code-is-not-progress.md"
+license: "MIT"
+keywords:
+  - AI coding agents
+  - agent orchestration
+  - product evaluation
+  - compute allocation
+  - synthetic evaluation
+  - product foundry
