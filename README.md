@@ -1,150 +1,174 @@
-# Codex Demo Day Arena
+<h1 align="center">Codex Demo Day Arena</h1>
 
-> A product-foundry control plane for evaluating AI-built startup candidates through validator gates, buyer-usefulness scoring, compute allocation, and Demo Day-style investment decisions.
+<p align="center">
+  <strong>A product-foundry control plane for evaluating AI-built startup candidates through validator gates, buyer-usefulness scoring, compute allocation, and IC-style stopping rules.</strong>
+</p>
 
-## Why I Built This
+<p align="center">
+  <a href="paper/more-code-is-not-progress.pdf">Paper PDF</a>
+  ·
+  <a href="paper/more-code-is-not-progress.tex">LaTeX Source</a>
+  ·
+  <a href="FINAL_DEMO_DAY_REPORT.md">Final Report</a>
+  ·
+  <a href="WHY_NO_WINNER.md">Why No Winner</a>
+</p>
 
-AI coding agents can generate code quickly, but speed alone creates noise. The harder problem is deciding which products deserve more compute.
+<p align="center">
+  <img alt="license" src="https://img.shields.io/badge/license-MIT-7fc7a6" />
+  <img alt="status" src="https://img.shields.io/badge/status-closed-536b66" />
+  <img alt="portfolio" src="https://img.shields.io/badge/portfolio-20%20candidates-7fc7a6" />
+  <img alt="result" src="https://img.shields.io/badge/result-no%20winner-d77768" />
+  <img alt="paper" src="https://img.shields.io/badge/paper-LaTeX%20%2B%20PDF-536b66" />
+</p>
 
-Codex Demo Day Arena treats AI-built projects like a venture portfolio: agents build, validators reject weak maturity, buyer judges score usefulness, and compute is allocated only to products that clear explicit gates.
+> **TL;DR:** Codex Demo Day Arena evaluated 20 AI-built product candidates through maturity validators, synthetic buyer-usefulness judges, compute-allocation policy, and external-proof gates. It moved 20/20 candidates to structural readiness and classified 19/20 as buyer-compelling under rubric-based review, but awarded no fictional $10M winner because 0/20 had external proof.
 
-## What It Does
+## Best Way To Review
 
-- Validates product repos against maturity gates.
-- Detects weak product surfaces, thin architecture, poor evals, hidden mocks, and missing buyer artifacts.
-- Scores products using buyer-usefulness rubrics.
-- Allocates additional compute only to the strongest candidates.
-- Supports pivots, but makes them evidence-gated and expensive.
-- Prioritizes external proof once synthetic development stops being useful.
-- Produces Demo Day-style final reports and investment decisions.
+1. Read the [paper PDF](paper/more-code-is-not-progress.pdf), especially the state machine and no-winner sections.
+2. Scan the [Final Demo Day Report](FINAL_DEMO_DAY_REPORT.md) for the portfolio outcome.
+3. Review [Why No Winner](WHY_NO_WINNER.md) to understand the investment-readiness bar.
+4. Inspect the policy layer in [`policies/`](policies/) and sanitized outputs in [`examples/`](examples/).
+5. Read [`docs/reproducibility.md`](docs/reproducibility.md) for the boundary between public control-plane artifacts and private product repos.
 
-## Core Principle
+## Overview
 
-More code is not progress.
+AI coding agents can generate code quickly, but speed alone creates noise. The harder technical problem is deciding which candidates deserve more compute.
 
-More product evidence is progress.
+Codex Demo Day Arena treats AI-built products like a venture portfolio. Repo-owner agents build and improve candidates; validators reject weak product maturity; buyer judges score usefulness from the operator's perspective; a compute allocator funds only candidates that can change an investment belief; and an external-proof layer stops the system from mistaking synthetic polish for market evidence.
+
+The project is intentionally not framed as "20 AI-generated startups." It is a repo-level orchestration system for agentic product evaluation, portfolio governance, and disciplined stopping.
+
+## Core Result Snapshot
+
+| Metric | Result | Interpretation |
+| --- | ---: | --- |
+| Product candidates assessed | 20 | Private product repos were evaluated by the control plane. |
+| Structurally ready | 20/20 | Every candidate became judgeable under validator gates. |
+| Validator flags remaining | 0 | Maturity validation was no longer the bottleneck. |
+| Buyer-compelling under synthetic review | 19/20 | Rubric-based buyer judges found plausible usefulness, not market validation. |
+| Proof-now finalists | 5 | Fastest candidates for real-world proof attempts. |
+| Investment-grade proof | 0/20 | No candidate had real customer/data evidence. |
+| Winner awarded | 0 | The system refused to manufacture conviction from synthetic validation. |
+
+## Architecture
+
+```mermaid
+flowchart TD
+    A["Product Candidates"] --> B["Repo-Owner Agents"]
+    B --> C["Validator Gates"]
+    C --> D["Buyer-Usefulness Judge"]
+    D --> E["Compute Allocator"]
+    E --> F["Funded Proof Sprints"]
+    F --> G["Proof Prioritizer"]
+    G --> H["IC / No-Winner Decision"]
+
+    C --> C1["ready = structurally judgeable"]
+    D --> D1["compelling = plausible usefulness under synthetic review"]
+    G --> G1["investable requires external proof"]
+```
+
+## Methodology
+
+| Layer | Purpose | Output |
+| --- | --- | --- |
+| Repo-owner agents | Improve individual candidates within controlled rounds. | Product branches, demo surfaces, receipts, tests, evals. |
+| Validator gates | Enforce structural maturity before judgment. | `ready`, `flags`, `warnings`, command results, LOC metrics, artifact checks. |
+| Buyer-usefulness scoring | Ask whether a target operator would plausibly care. | Score, verdict, recommendation, strongest believe/pass reasons. |
+| Compute allocation | Decide whether another owner round is worth funding. | `round-2-owner`, `external-proof-required`, `hold`, `salvage-or-pivot`. |
+| Proof prioritization | Rank candidates by fastest path to real-world evidence. | Proof-now, proof-later, customer-data-required, synthetic-ceiling categories. |
+| IC decision | Decide whether any candidate deserves the fictional $10M check. | Winner or no-winner outcome. |
 
 ## Technical Paper
 
-Read the companion paper:
+The companion paper presents the system as an engineering artifact rather than a narrative postmortem:
 
-**[More Code Is Not Progress: Evidence-Gated Orchestration for AI Coding Agent Product Portfolios](paper/more-code-is-not-progress.md)**
-
-The paper describes the arena as a control-plane implementation: repo discovery, validator inputs/outputs, maturity flags, buyer scoring, compute allocation, proof-priority ranking, candidate state transitions, and the no-winner decision rule.
-
-Paper assets:
-
-- [Paper index](paper/README.md)
-- [PDF](paper/more-code-is-not-progress.pdf)
+- [Paper PDF](paper/more-code-is-not-progress.pdf)
+- [Markdown paper](paper/more-code-is-not-progress.md)
 - [LaTeX source](paper/more-code-is-not-progress.tex)
 - [BibTeX citation](paper/citation.bib)
 - [Reproducibility note](docs/reproducibility.md)
 
-## System Architecture
+Build the paper locally:
 
-```mermaid
-flowchart TD
-    A["Product Repos"] --> B["Repo Owner Agents"]
-    B --> C["Validator Gates"]
-    C --> D["Buyer Usefulness Judges"]
-    D --> E["Compute Allocation Policy"]
-    E --> F["Funded Proof Sprints"]
-    F --> G["External Proof Ranking"]
-    G --> H["IC / Demo Day Decision"]
-    H --> I["Final Closure Reports"]
+```bash
+cd paper
+make
 ```
 
-## Operating Loop
+The build uses `tectonic`.
 
-1. Repo-owner agents improve product candidates.
-2. Validator gates check product maturity.
-3. Buyer judges score usefulness from the target operator's perspective.
-4. Compute allocation funds only the strongest candidates.
-5. Funded proof sprints improve product surfaces, evals, receipts, and buyer artifacts.
-6. External-proof ranking identifies which products need real customer evidence.
-7. The final IC process decides whether any product deserves the fictional $10M check.
+## Key Design Principle
 
-## Results
+```text
+Fund next round only if:
+DeltaInvestmentBelief(next_round) > CostOfCompute + RiskOfFalseConfidence
+```
 
-- 20 product repos assessed.
-- 20/20 reached structural readiness.
-- 0 validator flags remained.
-- 19/20 became buyer-compelling but external-proof-required.
-- 5 proof-now finalists identified.
-- No $10M winner awarded because no candidate had enough external proof.
+Where:
 
-## Why No Winner?
+- `DeltaInvestmentBelief` is the expected increase in confidence that a product deserves external validation or investment review.
+- `CostOfCompute` is agent time, added complexity, and review burden.
+- `RiskOfFalseConfidence` is the chance that synthetic polish makes the product look better without making it more real.
 
-The arena produced product-shaped, buyer-compelling candidates. But the final investment bar required external proof: real customer feedback, real data, pilot interest, or willingness-to-pay signals.
+## Candidate States
 
-The system refused to manufacture conviction from synthetic validation alone. That is the point. A good agentic evaluation system has to know when to say no.
+| State | Meaning |
+| --- | --- |
+| `ready` | Structurally judgeable: demo, tests, evals, receipt, product surface, artifact, and mock disclosure exist. |
+| `compelling` | Synthetic buyer judge found plausible usefulness under a rubric. |
+| `external-proof-required` | Further local coding cannot resolve the main remaining uncertainty. |
+| `proof-now` | Candidate has a fast path to real user/data validation. |
+| `investable` | External proof exists and IC review can begin. |
 
 ## Repository Map
 
 ```text
-codex-demo-day-arena/
-  README.md
-  FINAL_DEMO_DAY_REPORT.md
-  WHY_NO_WINNER.md
-  PORTFOLIO_OUTCOME.md
-  TOP_REPOS_TO_REVISIT.md
-  LESSONS_LEARNED.md
-  paper/
-    more-code-is-not-progress.md
-    more-code-is-not-progress.tex
-    Makefile
-    figures/
-    tables/
-    references.md
-  docs/
-    architecture.md
-    operating-model.md
-    compute-allocation.md
-    validation-system.md
-    buyer-judging.md
-    external-proof-phase.md
-    limitations.md
-  prompts/
-    repo-owner-round1.md
-    repo-owner-funded-proof.md
-    investor-judge.md
-    buyer-usefulness-judge.md
-    investment-committee.md
-  policies/
-    PRODUCT_MATURITY_RUBRIC.md
-    INVESTMENT_READINESS_GATE.md
-    COMPUTE_ALLOCATION_POLICY.md
-    PIVOT_POLICY.md
-    EXTERNAL_PROOF_PROTOCOL.md
-    PROOF_PRIORITY_RUBRIC.md
-    STOPPING_RULES.md
-  reference/
-    TASTE_BANK_RUBRIC.md
-    anti-patterns/
-    exemplars/
-  scripts/
-    validate_product_repos.py
-    tier_product_repos.py
-    prepare_repo_round.py
-    launch_repo_owners.py
-    rank_external_proof.py
-  examples/
-    sample_validation_report.json
-    sample_buyer_scorecard.md
-    sample_compute_allocation.md
-    sample_proof_priority_report.md
+paper/          LaTeX paper, PDF, Markdown version, figures, tables, citations
+docs/           Architecture, operating model, validation, buyer judging, reproducibility
+policies/       Maturity rubric, investment readiness gate, compute allocation, proof protocol
+prompts/        Repo-owner, buyer judge, investor judge, and technical judge prompts
+scripts/        Control-plane scripts for validation, judging, allocation, and proof ranking
+examples/       Sanitized sample outputs; no private product repo data
+reference/      Taste Bank rubric, exemplar profiles, and anti-patterns
 ```
 
-## Example Reports
+## Quickstart
 
-The `examples/` directory contains sanitized examples of the control-plane outputs:
+This public repo is the control-plane artifact. The evaluated product repos are private, so the main public workflows are inspection and paper build.
 
-- validation report
-- buyer scorecard
-- compute allocation report
-- proof-priority report
+Run script syntax checks:
 
-The actual product repos are private. This public repo is the orchestration and evaluation system.
+```bash
+python3 -m py_compile scripts/*.py
+```
+
+Build the paper:
+
+```bash
+cd paper
+make
+```
+
+Inspect sanitized output examples:
+
+```bash
+ls examples/
+```
+
+## Claim Boundaries
+
+This project does **not** claim that the 20 candidates were market validated.
+
+It claims:
+
+- the control plane made candidates structurally judgeable,
+- synthetic buyer judges classified 19/20 as plausibly useful,
+- the allocator identified when local development hit a synthetic ceiling,
+- no candidate received the fictional $10M check because external proof was missing.
+
+The no-winner result is central. A weaker system would have selected the highest synthetic score. This one stopped.
 
 ## Final Status
 
@@ -161,9 +185,7 @@ The arena should be reopened only if a real customer, real data source, or real 
 
 ## Reopening Rule
 
-Do not reopen the arena globally.
-
-Only reopen a specific repo if there is one of:
+Do not reopen the arena globally. Reopen a specific repo only with:
 
 - real customer/user feedback,
 - real or public input data,
@@ -171,50 +193,6 @@ Only reopen a specific repo if there is one of:
 - a willingness-to-pay or pilot signal,
 - a sample-data request,
 - a real use case that can produce an external proof packet.
-
-If reopened, the repo must produce:
-
-- `EXTERNAL_PROOF_PACKET.md`
-- `CUSTOMER_FEEDBACK.md`
-- `REAL_DATA_RECEIPT.md` when real or public data is used
-- `UPDATED_IC_MEMO.md`
-- `FUNDING_RECOMMENDATION.md`
-
-Do not launch owner agents for local polish. Do not add product features before external proof creates a specific implementation gap.
-
-## Branches And Commits Produced
-
-### Control-Plane Commits
-
-| Commit | Purpose |
-| --- | --- |
-| `f27b826` | Run funded round 2 owners |
-| `385c3cb` | Run funded proof batch 2 orchestration |
-| `3ed8c28` | Run funded proof batch 3 orchestration |
-| `b9ebce2` | Run funded proof batch 4 orchestration |
-| `590349e` | Run funded proof batch 5 orchestration |
-| `2f016a3` | Run funded proof batch 6 orchestration |
-| `57c4f78` | Run funded proof batch 7 orchestration |
-| `e56e9cf` | Add external proof phase |
-| `57826ac` | Close Demo Day arena |
-
-### Product Repo Branches
-
-The 20 product repos are private. Their branches were retained as private artifacts for future proof work.
-
-## Limitations
-
-This project tests orchestration, validation, and product judgment. It does not claim that synthetic evaluation proves venture-scale demand. The system intentionally stops when the next required signal must come from real users or real data.
-
-## Future Work
-
-The only future work that matters is external proof:
-
-- run a proof-now finalist against a real target-user workflow,
-- collect customer feedback,
-- produce a real-data receipt,
-- update the IC memo,
-- decide whether reopening that specific repo is justified.
 
 ## License
 
