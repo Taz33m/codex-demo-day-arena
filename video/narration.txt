@@ -1,0 +1,23 @@
+AI coding agents can generate product-shaped repos quickly. But more code is not progress. Better evidence is progress.
+
+When generation becomes cheap, noise gets cheaper too. More lines of code, more docs, more demos, more polish: all of it can look like momentum without changing the decision that matters.
+
+The hard question is not, can the agent build something? It is, does this candidate deserve more compute?
+
+Codex Demo Day Arena treats AI-built products like a portfolio. Repo-owner agents improve candidates. Validator gates check maturity. Buyer judges score usefulness from an operator's perspective. The compute allocator funds only work that can change an investment belief. When synthetic development stops helping, the system moves to proof priority.
+
+The public repo is not the twenty product candidates. It is the control plane: scripts, policies, prompts, sanitized examples, final reports, and a technical paper. The private product repos stay private. The public artifact shows how the system made decisions without pretending synthetic outputs were market proof.
+
+The system separates three ideas that agent workflows often collapse. Ready means structurally judgeable. Compelling means a synthetic buyer judge found plausible usefulness. Investable means external proof exists.
+
+Every serious candidate needed a demo, tests, evals, a receipt, a product surface, mock disclosure, and a buyer-relevant artifact.
+
+The final portfolio had twenty out of twenty structurally ready candidates. Nineteen were buyer-compelling under synthetic review. Five became proof-now finalists. But zero had investment-grade external proof.
+
+So no fictional ten million dollar winner was awarded.
+
+That refusal is the point. The system was designed to prevent synthetic validation from becoming false conviction.
+
+The impressive part is not that agents generated products. The impressive part is that the system knew when to stop.
+
+More code is not progress. Better evidence is progress.

@@ -100,6 +100,13 @@ make
 
 The build uses `tectonic`.
 
+## Video Artifact
+
+The companion video is a 2:45 technical walkthrough of the control plane, evidence gates, portfolio result, and no-winner decision.
+
+- [Watch the MP4](video/renders/more-code-is-not-progress.mp4)
+- [Video source and render notes](video/README.md)
+
 ## Key Design Principle
 
 ```text
