@@ -13,15 +13,15 @@
 </p>
 
 <p align="center">
-  <a href="https://youtu.be/n7-Aguvs-XA">
-    <img src="assets/video-preview.gif" alt="Animated preview of the Codex Demo Day Arena control plane video" width="760" />
+  <a href="paper/more-code-is-not-progress.pdf">
+    <img src="assets/paper-preview.png" alt="Preview of the More Code Is Not Progress paper PDF" width="430" />
   </a>
 </p>
 
 <p align="center">
-  <a href="https://youtu.be/n7-Aguvs-XA"><strong>Watch the 2:45 systems walkthrough</strong></a>
+  <a href="paper/more-code-is-not-progress.pdf"><strong>Read the technical paper</strong></a>
   ·
-  <a href="paper/more-code-is-not-progress.pdf">Read the technical paper</a>
+  <a href="https://youtu.be/n7-Aguvs-XA">Watch the 2:45 systems walkthrough</a>
 </p>
 
 > **TL;DR:** Codex Demo Day Arena evaluated 20 AI-built product candidates through maturity validators, synthetic buyer-usefulness judges, compute-allocation policy, and external-proof gates. It moved 20/20 candidates to structural readiness and classified 19/20 as buyer-compelling under rubric-based review, but awarded no fictional $10M winner because 0/20 had external proof.
@@ -101,22 +101,6 @@ make
 ```
 
 The build uses `tectonic`.
-
-## Video Artifact
-
-The companion video is a 2:45 technical walkthrough of the control plane, evidence gates, portfolio result, and no-winner decision.
-
-<p align="center">
-  <a href="https://youtu.be/n7-Aguvs-XA">
-    <img src="assets/video-preview.gif" alt="Animated preview of the More Code Is Not Progress video" width="760" />
-  </a>
-</p>
-
-<p align="center">
-  <a href="https://youtu.be/n7-Aguvs-XA"><strong>Watch on YouTube</strong></a>
-</p>
-
-Video composition files and rendered MP4s are intentionally not tracked in this repository. The YouTube upload is the canonical video artifact; the GIF above is a lightweight preview.
 
 ## Key Design Principle
 
