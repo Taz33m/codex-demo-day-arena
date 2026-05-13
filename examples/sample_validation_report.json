@@ -1,0 +1,17 @@
+{
+  "repo_name": "sample-product",
+  "ready": true,
+  "flags": [],
+  "commands": {
+    "demo": "passed",
+    "test": "passed",
+    "eval": "passed",
+    "receipt": "passed"
+  },
+  "metrics": {
+    "logic_loc": 2400,
+    "test_eval_loc": 520,
+    "has_product_surface_signal": true,
+    "receipt_has_buyer_relevant_artifact": true
+  }
+}

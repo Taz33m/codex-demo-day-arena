@@ -1,0 +1,23 @@
+__pycache__/
+*.pyc
+.DS_Store
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.log
+
+# Runtime logs from launched Codex team sessions.
+teams/*/logs/session-*.log
+
+# Generated judging artifacts. Recreate with collect_packets.py and run_judging.py.
+final/packets/
+final/judging/
+final/judging-prompts/
+
+# Standalone product repo exports. The monitor manifests stay tracked.
+published/team-repos/
+product-repos/
+repo-rounds/*/*/logs/
+repo-rounds/private-outputs/
