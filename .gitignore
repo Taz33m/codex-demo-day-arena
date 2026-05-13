@@ -30,3 +30,6 @@ published/team-repos/
 product-repos/
 repo-rounds/*/*/logs/
 repo-rounds/private-outputs/
+
+# Local video composition source, render artifacts, and HyperFrames workspace.
+video/

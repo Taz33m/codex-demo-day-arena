@@ -13,13 +13,15 @@
 </p>
 
 <p align="center">
-  <a href="paper/more-code-is-not-progress.pdf">
-    <img src="assets/paper-preview.png" alt="Preview of the More Code Is Not Progress paper PDF" width="430" />
+  <a href="https://youtu.be/n7-Aguvs-XA">
+    <img src="assets/video-preview.gif" alt="Animated preview of the Codex Demo Day Arena control plane video" width="760" />
   </a>
 </p>
 
 <p align="center">
-  <em>Click the paper preview to open the PDF.</em>
+  <a href="https://youtu.be/n7-Aguvs-XA"><strong>Watch the 2:45 systems walkthrough</strong></a>
+  ·
+  <a href="paper/more-code-is-not-progress.pdf">Read the technical paper</a>
 </p>
 
 > **TL;DR:** Codex Demo Day Arena evaluated 20 AI-built product candidates through maturity validators, synthetic buyer-usefulness judges, compute-allocation policy, and external-proof gates. It moved 20/20 candidates to structural readiness and classified 19/20 as buyer-compelling under rubric-based review, but awarded no fictional $10M winner because 0/20 had external proof.
@@ -104,8 +106,17 @@ The build uses `tectonic`.
 
 The companion video is a 2:45 technical walkthrough of the control plane, evidence gates, portfolio result, and no-winner decision.
 
-- [Watch the MP4](video/renders/more-code-is-not-progress.mp4)
-- [Video source and render notes](video/README.md)
+<p align="center">
+  <a href="https://youtu.be/n7-Aguvs-XA">
+    <img src="assets/video-preview.gif" alt="Animated preview of the More Code Is Not Progress video" width="760" />
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://youtu.be/n7-Aguvs-XA"><strong>Watch on YouTube</strong></a>
+</p>
+
+Video composition files and rendered MP4s are intentionally not tracked in this repository. The YouTube upload is the canonical video artifact; the GIF above is a lightweight preview.
 
 ## Key Design Principle
 
@@ -183,7 +194,6 @@ The no-winner result is central. A weaker system would have selected the highest
 The arena is closed.
 
 - Active owner agents: none
-- Active video producers: none
 - Active judging agents: none
 - Winner awarded: no
 - Fictional $10M check: not awarded
